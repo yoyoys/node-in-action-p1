@@ -1,0 +1,9 @@
+{
+  "name": "node-in-action-1",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "mime": "^2.2.0",
+    "socket.io": "^2.0.4"
+  }
+}

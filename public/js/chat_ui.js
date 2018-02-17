@@ -20,28 +20,28 @@ socket.on('message', message => {
 
 socket.on('rooms', rooms => {
   $('#room-list').empty();
-  for (let room in rooms) {
-    room = room.substring(1, room.length);
-    if (room !== '') $('#room-list').append(divEscapedContentElement(room));
-  }
+  rooms.forEach(room => {
+    if (room !== '') 
+      $('#room-list').append(divEscapedContentElement(room));
+  });
   $('#room-list div').click(function() {
     chatApp.processCommand(`/join ${$(this).text()}`);
     $('#send-message').focus();
   });
 
-
-  setInterval(()=>{
-    socket.emit('rooms');
-  }, 1000);
-
-  $('#send-message').focus();
-
-  $('#send-form').submit(()=>{
-    processUserInput(chatApp, socket);
-    return false;
-  });
 });
 
+
+setInterval(function(){
+  socket.emit('rooms');
+}, 1000);
+
+$('#send-message').focus();
+
+$('#send-form').submit(()=>{
+  processUserInput(chatApp, socket);
+  return false;
+});
 
 
 
@@ -63,7 +63,7 @@ function processUserInput(chatApp, socket) {
       $('#messages').append(divSystemContentElement(systemMessage));
     }
   } else {
-    chat.sendMessage($('#room').text(), message);
+    chatApp.sendMessage($('#room').text(), message);
     $('#messages').append(divEscapedContentElement(message));
     $('#messages').scrollTop($('#message').prop('scrollHeight'));
   }

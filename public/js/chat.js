@@ -1,4 +1,4 @@
-let Chat = socket => {
+var Chat = function(socket){
   this.socket = socket;
 };
 
